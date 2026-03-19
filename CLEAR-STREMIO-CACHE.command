@@ -34,13 +34,15 @@ SIZE_BEFORE=$(du -sm "$TARGET" 2>/dev/null | awk '{print $1}')
 echo "CURRENT CACHE SIZE: ${SIZE_BEFORE} MB"
 echo
 
-#read -p "Delete all contents of the cache folder? Type 'yes' to confirm: " confirmation
-#echo
-
-#if [[ "$confirmation" != "yes" ]]; then
+# ↓ Enable lines 38-44 to allow additional confirmation → available for extra safety if preferred ↓
+# read -p "Delete all contents of the cache folder? Type 'yes' to confirm: " confirmation
+# echo
+#
+# if [[ "$confirmation" != "yes" ]]; then
 #    echo "Operation aborted."
 #    exit 0
-#fi
+# fi
+# ↑ Enable lines 38-44 to allow additional confirmation → available for extra safety if preferred ↑
 
 echo "→ 🚀 DELETING CONTENTS OF: $TARGET"
 echo "→ 🚨 REMOVAL IN PROGRESS..."
