@@ -1,6 +1,6 @@
 # Stremio Cache Cleaner for macOS
 
-> A simple, safe, and visual Bash script that completely clears the Stremio cache on macOS, freeing up disk space with a nice progress display and final summary.
+> A simple, safe, and visual bash script that completely clears the Stremio cache on macOS, freeing up disk space with a nice progress display and final summary.
 
 > Perfect for users who notice Stremio taking up several gigabytes of cache over time.
 
