@@ -100,9 +100,9 @@ teardown() {
   echo "  Real target = $real_target"
 
 # TODO: Keeping for reference - Debug output to allow for debugging without causing the test to fail!
-  if ! ls -la "$real_target" 2>/dev/null; then
-    echo "  (not present)"
-  fi
+#  if ! ls -la "$real_target" 2>/dev/null; then
+#    echo "  (not present)"
+#  fi
 
   # ── Aggressive deletion strategy ──
   (
