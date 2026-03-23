@@ -131,7 +131,7 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
    bats --tap tests/test-clear-cache.bats
 ````
 
-2. **⚠️NOTE:** The test will pause output from `Test 3 - - safety check - refuses to delete $HOME (critical path protection)` - HIT any keyboard KEY to continue the test run by cycling through the remaining tests to complete (12 tests to complete in the test suite).
+2. **⚠️NOTE:** The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` - HIT any keyboard KEY to continue the test run by cycling through the remaining tests to complete (12 tests to complete in the test suite).
 
 **Expected output for a successful / completed test suite run with 12 tests passing**
 
