@@ -11,6 +11,15 @@ PATH="$REPO_ROOT:$PATH"
 SCRIPT="$REPO_ROOT/CLEAR-STREMIO-CACHE.sh"
 
 setup() {
+#  load '../test_helper/bats-support/load'
+#  load '../test_helper/bats-assert/load'
+
+#  TEST_DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" >/dev/null 2>&1 && pwd)"
+#  REPO_ROOT="$TEST_DIR/.."
+
+#  PATH="$REPO_ROOT:$PATH"
+#  SCRIPT="CLEAR-STREMIO-CACHE.sh"
+
   export TARGET="$BATS_TMPDIR/stremio-cache-test"
   mkdir -p "$TARGET"
 
@@ -89,7 +98,11 @@ teardown() {
   echo "Before deletion:"
   echo "  HOME        = $HOME"
   echo "  Real target = $real_target"
-  ls -la "$real_target" 2>/dev/null || echo "  (not present)"
+
+# TODO: Keeping for reference - Debug output to allow for debugging without causing the test to fail!
+  if ! ls -la "$real_target" 2>/dev/null; then
+    echo "  (not present)"
+  fi
 
   # ── Aggressive deletion strategy ──
   (
