@@ -23,16 +23,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bats
 
-      - name: Install bats-support & bats-assert (nice assertions)
-        run: |
-          git clone https://github.com/bats-core/bats-support.git /tmp/bats-support
-          git clone https://github.com/bats-core/bats-assert.git   /tmp/bats-assert
+# TODO: Delete this when runner run green!
+#      - name: Install bats-support & bats-assert (nice assertions)
+#        run: |
+#          git clone https://github.com/bats-core/bats-support.git /tmp/bats-support
+#          git clone https://github.com/bats-core/bats-assert.git   /tmp/bats-assert
 
-      - name: Wire bats helpers into expected path
+      - name: Install bats-support & bats-assert
         run: |
-          mkdir -p test_helper
-          ln -s /tmp/bats-support test_helper/bats-support
-          ln -s /tmp/bats-assert  test_helper/bats-assert
+          git clone https://github.com/bats-core/bats-support.git test_helper/bats-support
+          git clone https://github.com/bats-core/bats-assert.git  test_helper/bats-assert
+
+# TODO: Delete this when runner run green!
+#      - name: Wire bats helpers into expected path
+#        run: |
+#          mkdir -p test_helper
+#          ln -s /tmp/bats-support test_helper/bats-support
+#          ln -s /tmp/bats-assert  test_helper/bats-assert
 
       - name: Copy script and prepare test environment
         run: |
@@ -40,4 +47,5 @@ jobs:
           chmod +x test-clear-cache.sh
 
       - name: Run bats tests
+        working-directory: tests
         run: bats --tap test-clear-cache.bats
