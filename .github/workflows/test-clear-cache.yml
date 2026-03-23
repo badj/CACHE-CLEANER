@@ -28,6 +28,12 @@ jobs:
           git clone https://github.com/bats-core/bats-support.git /tmp/bats-support
           git clone https://github.com/bats-core/bats-assert.git   /tmp/bats-assert
 
+      - name: Wire bats helpers into expected path
+        run: |
+          mkdir -p test_helper
+          ln -s /tmp/bats-support test_helper/bats-support
+          ln -s /tmp/bats-assert  test_helper/bats-assert
+
       - name: Copy script and prepare test environment
         run: |
           cp CLEAR-STREMIO-CACHE.sh test-clear-cache.sh
