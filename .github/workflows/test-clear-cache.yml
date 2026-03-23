@@ -1,0 +1,37 @@
+# .github/workflows/test-clear-cache.yml
+name: Test CLEAR-STREMIO-CACHE in Docker
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '30 20 * * *'  # 9:30 am NZT (UTC+12)
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Install bats + core utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bats
+
+      - name: Install bats-support & bats-assert (nice assertions)
+        run: |
+          git clone https://github.com/bats-core/bats-support.git /tmp/bats-support
+          git clone https://github.com/bats-core/bats-assert.git   /tmp/bats-assert
+
+      - name: Copy script and prepare test environment
+        run: |
+          cp CLEAR-STREMIO-CACHE.sh test-clear-cache.sh
+          chmod +x test-clear-cache.sh
+
+      - name: Run bats tests
+        run: bats --tap test-clear-cache.bats
