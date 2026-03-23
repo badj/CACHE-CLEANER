@@ -1,25 +1,16 @@
 #!/usr/bin/env bats
 
-#load '../test_helper/bats-support/load'
-#load '../test_helper/bats-assert/load'
+load '../test_helper/bats-support/load'
+load '../test_helper/bats-assert/load'
 
 # Directory containing this test file
 TEST_DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" >/dev/null 2>&1 && pwd)"
 # Repo root is one level up from tests/
 REPO_ROOT="$TEST_DIR/.."
-
+PATH="$REPO_ROOT:$PATH"
 SCRIPT="$REPO_ROOT/CLEAR-STREMIO-CACHE.sh"
 
 setup() {
-  load '../test_helper/bats-support/load'
-  load '../test_helper/bats-assert/load'
-
-  TEST_DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" >/dev/null 2>&1 && pwd)"
-  REPO_ROOT="$TEST_DIR/.."
-
-  PATH="$REPO_ROOT:$PATH"
-  SCRIPT="CLEAR-STREMIO-CACHE.sh"
-
   export TARGET="$BATS_TMPDIR/stremio-cache-test"
   mkdir -p "$TARGET"
 
