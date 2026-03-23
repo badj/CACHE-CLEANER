@@ -1,4 +1,3 @@
-# .github/workflows/test-clear-cache.yml
 name: Test CLEAR-STREMIO-CACHE in Docker
 
 on:
