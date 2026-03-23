@@ -170,7 +170,8 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 
 **GitHub Actions/Workflow:**
 
-- GitHub Action/Workflow implemented to [test the CLEAR-STREMIO-CACHE.command](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) on every commit/push/pull request to main and daily scheduled runs: [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) 
+- GitHub Action/Workflow implemented to [test the CLEAR-STREMIO-CACHE.command](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) on every commit/push/pull request to main and daily scheduled runs.
+- [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) 
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
