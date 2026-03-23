@@ -71,12 +71,48 @@ chmod +x CLEAR-STREMIO-CACHE.command
 ./CLEAR-STREMIO-CACHE.command
 ```
 
-### Expected output samples:
+### Expected output sample:
 
-![clear-stremio-cache-sample-runner-output1.jpeg](Images/clear-stremio-cache-sample-runner-output1.jpeg)
+```terminaloutput
+Last login: Mon Mar 23 14:51:56 on ttys005
+testsuser:~ % /Users/testsuser/Desktop/CLEAR-STREMIO-CACHE.command ; exit;
+TARGET DIRECTORY: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
 
-![clear-stremio-cache-sample-runner-output2.jpeg](Images/clear-stremio-cache-sample-runner-output2.jpeg)
+CONTENTS OF STREMIO CACHE FOLDER:
+total 0
+drwxr-xr-x  3 testsuser  staff    96B 23 Mar 23:00 Test folder 1
+drwxr-xr-x  3 testsuser  staff    96B 23 Mar 23:01 Test folder 2
 
+CURRENT CACHE SIZE: 1 MB
+
+→ 🚀 DELETING CONTENTS OF: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
+→ 🚨 REMOVAL IN PROGRESS...
+→ 🧚 FILES/FOLDERS BEING DELETED:
+  DELETING:  16K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/.DS_Store
+  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 1
+  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 1/test-file1.txt
+  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 2
+  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 2/test-file2.txt
+
+==========================================
+→ ✅ STREMIO CACHE CLEANUP COMPLETE
+→ 🗑  DELETED: 1 MB
+→ ✨ REMAINING CACHE SIZE AFTER CLEANUP: 0 MB
+→ 🍿 FOLDER: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
+==========================================
+OVERALL DISK SPACE ON YOUR MAC (MAIN DRIVE):
+
+  TOTAL DISK SIZE:  460Gi
+  USED:             12Gi
+  FREE (REMAINING): 63Gi
+  USED PERCENTAGE:  16%
+
+YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
+==========================================
+
+→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...
+
+```
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
@@ -95,39 +131,37 @@ chmod +x CLEAR-STREMIO-CACHE.command
    bats --tap tests/test-clear-cache.bats
 ````
 
-2. **⚠️NOTE:** The test will pause output from `Test 4 - exits with error when target folder does not exist` - HIT any keyboard KEY for the test run to continue for the remaining tests to complete until all 13 tests completed
+2. **⚠️NOTE:** The test will pause output from `Test 3 - - safety check - refuses to delete $HOME (critical path protection)` - HIT any keyboard KEY to continue the test run by cycling through the remaining tests to complete (12 tests to complete in the test suite).
 
-**Expected output for a successful / completed test suite run with 13 tests passing**
+**Expected output for a successful / completed test suite run with 12 tests passing**
 
 ```bash
-    CACHE-CLEANER (main) % bats --tap tests/test-clear-cache.bats
-    1..13
-    ok 1 Test 1 - safety check - refuses to delete /
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/1.out
-    ok 2 Test 2 - safety check - refuses to delete / (critical path protection)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/2.out
-    ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/3.out
-    ok 4 Test 4 - exits with error when target folder does not exist
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/4.out
-    ok 5 Test 5 - shows size before (mocked du)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/5.out
-    ok 6 Test 7 - mock deletion - counts deleted MB correctly
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/6.out
-    ok 7 Test 8 - does not crash when folder is already empty
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/7.out
-    ok 8 Test 9 - df parsing - formats header and values correctly (mocked df)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/8.out
-    ok 9 Test 10 - du -sm - empty folder reports 0 MB before and after
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/9.out
-    ok 10 Test 11 - du -sm - very large cache size (multi-gigabyte reported as MB)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/10.out
-    ok 11 Test 12 - du -sm - very small non-zero size (fractional rounding)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/11.out
-    ok 12 Test 13 - du -sm — du fails or returns garbage → script still exits cleanly
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/12.out
-    ok 13 Test 14 - size calculation handles negative result (defensive — shouldn't happen)
-    mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-dq6d3P/test/13.out
+  CACHE-CLEANER (main) % bats --tap tests/test-clear-cache.bats
+  1..12
+  ok 1 Test 1 - safety check - refuses to delete /
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/1.out
+  ok 2 Test 2 - safety check - refuses to delete / (critical path protection)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/2.out
+  ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/3.out
+  ok 4 Test 4 - shows size before (mocked du)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/4.out
+  ok 5 Test 5 - mock deletion - counts deleted MB correctly
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/5.out
+  ok 6 Test 6 - does not crash when folder is already empty
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/6.out
+  ok 7 Test 7 - df parsing - formats header and values correctly (mocked df)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/7.out
+  ok 8 Test 8 - du -sm - empty folder reports 0 MB before and after
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/8.out
+  ok 9 Test 9 - du -sm - very large cache size (multi-gigabyte reported as MB)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/9.out
+  ok 10 Test 10 - du -sm - very small non-zero size (fractional rounding)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/10.out
+  ok 11 Test 11 - du -sm — du fails or returns garbage → script still exits cleanly
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/11.out
+  ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen)
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
 ```
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
