@@ -14,6 +14,7 @@
   - [Option 2: Run from Terminal](#option-2-run-from-terminal)
 - [Tests](#tests)
 - [CICD Integration](#cicd-integration)
+- [Open issues (to be addressed in the next release)](#open-issues-to-be-addressed-in-the-next-release)
 
 ---
 
@@ -26,24 +27,30 @@
 - **Auto-close**: Automatically closes the Terminal window when finished (macOS Terminal & iTerm2)
 - **One-click ready**: Designed to be saved as a `.command` file (double-click to run)
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ### What Does It Do?
 
 * The ["CLEAR-STREMIO-CACHE.command"](CLEAR-STREMIO-CACHE.command) script targets: `/Library/Application Support/stremio-server/stremio-cache/`
   * Deletes all contents inside the cache folder (does not delete the folder itself).
-* Shows you exactly what files/folders are being removed. 
-  * Reports how much space was freed. 
+* Shows you exactly what files/folders are being removed.
+  * Reports how much space was freed.
   * Shows your overall macOS disk usage.
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ### Requirements
 
 - macOS
 - Stremio installed (Desktop version that uses the local server/cache)
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ---
 
@@ -53,7 +60,7 @@
 
 1. Download the script as `CLEAR-STREMIO-CACHE.command`
 2. (Optional but recommended) Move it to your Desktop or Applications folder
-3. Open a terminal and navigate to the location of the script and make it executable 
+3. Open a terminal and navigate to the location of the script and make it executable
 
 ```bash
 chmod +x clear-stremio-cache.sh
@@ -62,7 +69,9 @@ chmod +x clear-stremio-cache.sh
 4. Double-click the file → Terminal will open and clean the cache automatically
 5. Press any key when finished to close the window
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ### Option 2: Run from Terminal
 
@@ -114,13 +123,15 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 
 ```
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ---
 
 ## Tests
 
-> * A lightweight [test suite: test-clear-cache.bats](tests/test-clear-cache.bats) is integrated that use [BATS-CORE (Bash Automated Testing System)](https://github.com/bats-core/bats-core) to test the [CLEAR-STREMIO-CACHE.sh](CLEAR-STREMIO-CACHE.sh) shell script in CI / [with GitHub Action: `test-clear-cache`](.github/workflows/test-clear-cache.yml) in Docker to simulate the filesystem layout. 
+> * A lightweight [test suite: test-clear-cache.bats](tests/test-clear-cache.bats) is integrated that use [BATS-CORE (Bash Automated Testing System)](https://github.com/bats-core/bats-core) to test the [CLEAR-STREMIO-CACHE.sh](CLEAR-STREMIO-CACHE.sh) shell script in CI / [with GitHub Action: `test-clear-cache`](.github/workflows/test-clear-cache.yml) in Docker to simulate the filesystem layout.
 > * It mocks dangerous parts (rm -rf) and checks the exit code, output parsing, safety guards, size calculation logic.
 
 **To run the test locally**
@@ -164,14 +175,29 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
   mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
 ```
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
+
 
 ## CICD Integration
 
 **GitHub Actions/Workflow:**
 
 - GitHub Action/Workflow implemented to [test the CLEAR-STREMIO-CACHE.command](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) on every commit/push/pull request to main and daily scheduled runs.
-- [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) 
+- [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
+
+
+[_⇡ Return to the Table of Contents_](#table-of-contents)
+
+
+---
+
+## Open issues to be addressed in the next release
+
+* STATUS: ⚠️ OPEN/WIP/Being investigated:
+
+1. [Fix this disabled test (Test 4 - exits with error when target folder does not exist) - failing in CI but passing locally on macOS](https://github.com/badj/CACHE-CLEANER/issues/1)
+
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
