@@ -10,7 +10,7 @@
 ## Table of contents
 
 - [Features](#features)
-  - [What Does It Do?](#what-does-it-do)
+  - [Intended use](#intended-use)
   - [Requirements](#requirements)
 - [How to use](#how-to-use)
   - [Option 1: Easy Double-Click](#option-1-easy-double-click)
@@ -34,7 +34,7 @@
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
 
-### What Does It Do?
+### Intended use
 
 * The ["CLEAR-STREMIO-CACHE.command"](CLEAR-STREMIO-CACHE.command) script targets: `/Library/Application Support/stremio-server/stremio-cache/`
   * Deletes all contents inside the cache folder (does not delete the folder itself).
