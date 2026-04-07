@@ -285,9 +285,13 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
    bats --tap --trace --timing tests/test-clear-cache.bats
 ````
 
-> ⚠️ **NOTE:** 
+⚠️ **NOTES:** 
+
+> **When running:** `bats --tap tests/test-clear-cache.bats`
 > - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the script run to compete in the background.
 > - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
+
+> **When running:** `bats --tap tests/test-clear-cache-with-fireworks.bats`
 > - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations for the script run to compete in the background.
 > - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
