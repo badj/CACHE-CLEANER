@@ -3,12 +3,12 @@
 > A simple, safe, and visual bash script that completely clears the [Stremio](https://www.stremio.com) cache on macOS, freeing up disk space with a nice progress display and final summary. Perfect for users who notice Stremio taking up several gigabytes of cache over time.
 > 
 > **Project / Repo includes:**   
-> - **DEFAULT:** CLEAR-STREMIO-CACHE.command/sh - Bash script that completely clears the Stremio cache on macOS
-> - **OPTIONAL:** CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh - Bash script that completely clears the Stremio cache on macOS with the [Addyosmani/Firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal when the script completes successfully.
-> - Test coverage with [BATS-CORE](https://github.com/bats-core/bats-core):
+> - **DEFAULT:** **CLEAR-STREMIO-CACHE.command/sh** - Bash script that completely clears the Stremio cache on macOS
+> - **OPTIONAL:** **CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh** - Bash script that completely clears the Stremio cache on macOS with the [Addyosmani/Firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal when the script completes successfully.
+> - **Test coverage with [BATS-CORE](https://github.com/bats-core/bats-core)**:
 >   -  [CLEAR-STREMIO-CACHE](tests/test-clear-cache.bats) tests
 >   -  [CLEAR-STREMIO-CACHE-WITH-FIREWORKS](tests/test-clear-cache-with-fireworks.bats) tests
-> - GitHub Actions for CI/CD:
+> - **GitHub Actions for CI/CD:**
 >   - [Test Clear Cache](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
 >     - [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
 >   - [Test Clear Cache With Fireworks](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml)
@@ -286,7 +286,9 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 ````
 
 > ⚠️ **NOTE:** 
-> - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background.
+> - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the script run to compete in the background.
+> - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
+> - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations for the script run to compete in the background.
 > - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
 ### Expected output - standard run
@@ -321,6 +323,7 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
   ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen)
   mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
 ```
+
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
@@ -385,6 +388,7 @@ $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
 ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen) in 974ms
 mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/12.out
 ```
+
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
@@ -453,6 +457,7 @@ Usage: bats [OPTIONS] <tests>
   For more information, see https://github.com/bats-core/bats-core
 ```
 
+
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
 
@@ -467,7 +472,6 @@ Usage: bats [OPTIONS] <tests>
 
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
-
 
 ---
 
