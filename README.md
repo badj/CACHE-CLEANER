@@ -19,7 +19,8 @@
   - [Option 1: Easy Double-Click](#option-1-easy-double-click)
   - [Option 2: Run from Terminal](#option-2-run-from-terminal)
 - [Tests](#tests)
-- [CICD Integration](#cicd-integration)
+  - [Run tests locally](#run-tests-locally)
+  - [CICD Integration](#cicd-integration)
 - [Open issues (to be addressed in the next release)](#open-issues-to-be-addressed-in-the-next-release)
 
 ---
@@ -178,25 +179,27 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 > * A lightweight [test suite: test-clear-cache.bats](tests/test-clear-cache.bats) is integrated that use [BATS-CORE (Bash Automated Testing System)](https://github.com/bats-core/bats-core) to test the [CLEAR-STREMIO-CACHE.sh](CLEAR-STREMIO-CACHE.sh) shell script in CI / [with GitHub Action: `test-clear-cache`](.github/workflows/test-clear-cache.yml) in Docker to simulate the filesystem layout.
 > * It mocks dangerous parts (rm -rf) and checks the exit code, output parsing, safety guards, size calculation logic.
 
-**To run the test locally**
+### Run tests locally
 
-1. Run the following command from the root of the project in a terminal
+- Run the following command from the root of the project in a terminal
 
 ```bash
    bats --tap tests/test-clear-cache.bats
 ````
 
-OR run with options to trace and provide timing details during test execution
+- OR run with options to trace and provide timing details during test execution
 
 ```bash
    bats --tap --trace --timing tests/test-clear-cache.bats
 ````
 
-2. ⚠️NOTE: The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
+- ⚠️NOTE: The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
-**Expected output for a successful / completed test suite run with 12 tests passing**
+### Expected output - standard run:
 
-```bash
+> Successful / completed test suite local run with 12 tests passing
+
+```terminaloutput
   CACHE-CLEANER (main) % bats --tap tests/test-clear-cache.bats
   1..12
   ok 1 Test 1 - safety check - refuses to delete /
@@ -225,7 +228,76 @@ OR run with options to trace and provide timing details during test execution
   mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
 ```
 
-**INFO: Bats Options/Usage/Manual**
+[_⇡ Return to the Table of Contents_](#table-of-contents)
+
+### Expected output - run with options:
+
+> Expected output for a successful / completed test suite local run with options `--trace --timing` for 12 tests passing
+
+```terminaloutput
+CACHE-CLEANER (main) % bats --tap --trace --timing tests/test-clear-cache.bats
+1..12
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 1 Test 1 - safety check - refuses to delete / in 51ms
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 2 Test 2 - safety check - refuses to delete / (critical path protection) in 43ms
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection) in 42ms
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 4 Test 4 - shows size before (mocked du) in 13214ms
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 5 Test 5 - mock deletion - counts deleted MB correctly in 20598ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3037.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 6 Test 6 - does not crash when folder is already empty in 9866ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3176.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 7 Test 7 - df parsing - formats header and values correctly (mocked df) in 10637ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3259.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 8 Test 8 - du -sm - empty folder reports 0 MB before and after in 10480ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3340.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 9 Test 9 - du -sm - very large cache size (multi-gigabyte reported as MB) in 10981ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3423.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 10 Test 10 - du -sm - very small non-zero size (fractional rounding) in 10990ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3511.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 11 Test 11 - du -sm — du fails or returns garbage → script still exits cleanly in 10500ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3599.out
+$$ [test-clear-cache.bats, line 39]
+$$ teardown >> "$BATS_OUT" 2>&1
+$$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen) in 10987ms
+mock rm -f /tmp/bats-run-OmEQ6h/bats.3683.out
+```
+
+[_⇡ Return to the Table of Contents_](#table-of-contents)
+
+### INFO: Bats Options/Usage/Manual:
 
 ```terminaloutput
 % bats -h
