@@ -20,6 +20,9 @@
   - [Option 2: Run from Terminal](#option-2-run-from-terminal)
 - [Tests](#tests)
   - [Run tests locally](#run-tests-locally)
+    - [Expected output - standard run](#expected-output---standard-run) 
+    - [Expected output - run with options](#expected-output---run-with-options)
+    - [INFO: BATS Options/Usage/Manual](#info-bats-optionsusagemanual)
   - [CICD Integration](#cicd-integration)
 - [Open issues (to be addressed in the next release)](#open-issues-to-be-addressed-in-the-next-release)
 
@@ -193,9 +196,11 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
    bats --tap --trace --timing tests/test-clear-cache.bats
 ````
 
-- ⚠️NOTE: The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
+> ⚠️ **NOTE:** 
+> - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background.
+> - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
-### Expected output - standard run:
+### Expected output - standard run
 
 > Successful / completed test suite local run with 12 tests passing
 
@@ -230,7 +235,7 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
-### Expected output - run with options:
+### Expected output - run with options
 
 > Expected output for a successful / completed test suite local run with options `--trace --timing` for 12 tests passing
 
