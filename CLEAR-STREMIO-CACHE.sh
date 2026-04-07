@@ -85,19 +85,7 @@ echo
 echo "YOU NOW HAVE APPROXIMATELY ${FREE_SPACE} OF FREE SPACE REMAINING ON YOUR MAIN DRIVE."
 echo "=========================================="
 
-
-# === Fireworks celebration ===
-echo
-echo -e "→  🎆  ENJOY SOME FIREWORKS FOR A SUCCESSFUL CLEANUP  🎆  !"
-echo
-
-if command -v node >/dev/null 2>&1; then
-    npx firew0rks fireworks 1 || true   # '|| true' prevents any error from stopping the script
-else
-    echo "(Skipping fireworks  🎆  - Node.js not installed)"
-fi
-
-# Optional: Add a short pause or message after
+# === Thank you message ===
 echo
 echo -e "→ THANKS FOR USING CACHE-CLEANER 🤙 !"
 

@@ -1,4 +1,4 @@
-name: Test CLEAR-STREMIO-CACHE in Docker
+name: Test CLEAR-STREMIO-CACHE-WITH-FIREWORKS in Docker
 
 on:
   push:
@@ -29,4 +29,12 @@ jobs:
 
       - name: Run bats tests
         working-directory: tests
-        run: bats --tap --trace --timing test-clear-cache.bats
+        run: bats --tap --trace --timing test-clear-cache-with-fireworks.bats
+
+      - name: Firew0rks DEMO - Run firew0rks after tests
+        run: |
+          if command -v node >/dev/null 2>&1; then
+              npx firew0rks fireworks 1 || true
+          else
+              echo "(Skipping fireworks  🎆  - Node.js not installed)"
+          fi
