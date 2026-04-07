@@ -29,4 +29,4 @@ jobs:
 
       - name: Run bats tests
         working-directory: tests
-        run: bats --tap test-clear-cache.bats
+        run: bats --tap --trace --timing test-clear-cache.bats

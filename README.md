@@ -2,8 +2,11 @@
 
 > A simple, safe, and visual bash script that completely clears the [Stremio](https://www.stremio.com) cache on macOS, freeing up disk space with a nice progress display and final summary. Perfect for users who notice Stremio taking up several gigabytes of cache over time.
 > 
-> Project / Repo includes test coverage with [BATS-CORE](https://github.com/bats-core/bats-core) and [GitHub Actions](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) for CI/CD.
- 
+> **Project / Repo includes:**   
+> - The [addyosmani/firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal when the script completes successfully.
+> - Test coverage with [BATS-CORE](https://github.com/bats-core/bats-core). 
+> - [GitHub Actions](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) for CI/CD:
+>   - [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
 
 ---
 
@@ -122,8 +125,46 @@ OVERALL DISK SPACE ON YOUR MAC (MAIN DRIVE):
 YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 ==========================================
 
-→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...
+→  🎆  ENJOY SOME FIREWORKS FOR A SUCCESSFUL CLEANUP  🎆  !                                                                             
 
+            +*_          -                        .           .             
+              `^,         ;  __^    _=             '        , `)             
+                '- ^,  ^  ' {)' =^_^               `       `,  - `,`;        
+      ^'^+_      `` '  -  ` ;)x[ '   _=*      ;`       . .  '     ( '        
+    __.  ]7^+,`', `'xx.   Y!-{^,  .+' .       '   ..   ; '      . '    ``.   
+       `^-'^^_^^-- `'^!' `!.!'. -'^''` `      .`  ) `` ! '       ! `     )   
+     ^^'`'`; .` ;`'.x=;'`-)*'__;.`_+^^*       ;`.`^ ) -`.   .    ^  ,    -  `
+   ^^''`]=+__,;`. -.-'!'^!;;;;{^*4)*+=+__.''''/+; ` - ) ;   ' `- `;`-        
+        ;.    `x*^!;x[(;`;-';^-..'.'`.'_;'+..=[_!     - '   !   , )`.;       
+ _+''/^```____,,`..*^7;;xz1'..';;)(){=_/       ^-          .`.. (`'`-)`.   `.
+    ==^]y^';'-'_+!';-][)@7{\;^+;/)^-^172+ ....``.`````-`.`.;  ;.'`. `].`-. ``
+ =*7!' ' `_+-z^' '-!-5y!\;1z1;;7\;. ''_7%..`''+_' ;.;`;.;--)`.);  `, 1 `);  `
+7''`   .=^' `. ;,;)!;$7/)(;]]$)_`;{_` -^-`!)`..;` !;)-!;);;{`-;)   (.^  )'`. 
+    ..'^ _`'. +^_[{!'^51]$(7Z7{;x'`*,-'.''![,` )  !({;[)^)[(-;'--  ^,  `-  ' 
+  _^` .`' .-'x'_91^';'Z{77[)]1.'{[,.;)_ !))'''='.``!^;]{!]^(-('-`, `!   `,  `
+  ` ='`  _'``.=^yy`.(;){*Y--7/z.'^+;(;^+ _^.  /`;`-'';7/'^`!;[`;`(  `    `,  
+  .*   .y `. Z'=^` ;(;).';` Y2*;._^[^)_  1_-  --!`;`.;^! -;'[[`--[    `   [  
+      ``  +`+'+y``;-),]'')  ^^,'';.Y[ \=`' * .--!-;`-! ;`;!-Z*`;\- `.  '  ^  
+     ```_'-x'_^ `.!)) Z';{, ` ^  !; '$,Y$   ^;;-!';`-'`(`)!)'!`(^!  `.  ;  ` 
+     ``_` 4'.7   ) [+`;`+''  . ` _\  ^2 `  .`/'!!`!--``)`^-)'' ! [,  ,` \    
+     `x` .' y`   $)7' `_+,`` _ ` _`' )',   ; *'[! ';)``-`  ; ' ' ^!  ' `*    
+     '` .!``^` ` '/7`  +{, `    .   .^ ^   ' ;`1' `!]- `; `````   ^  ' `.    
+       `  `  '    -[ _`]'     (  .  ;     `  ' ^`  !/; ;) ````` . '     !    
+     ` `         =]! =`7'     x  )             '   `!; !- -`- - - -`    )    
+     `    `    ` *`' ^`*[     -               `     `- !' ;;; ;,; '` `  ';   
+          `       -`    '`                        . .- ,  ;,; ''' . ` .      
+                         `                   ;    -  ;    ''),-'' ' - '   ,  
+                         `                   .    `  '      )'      ' -   '  
+                                             '     ; '      '         '      
+ `                                                 .                 ,       
+ `                                                 '  _              '       
+ `                                                    ' `                    
+                                                                             
+                                 
+→ THANKS FOR USING CACHE-CLEANER 🤙 !                                        
+                                                                             
+→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...                           
+                                                                                                                                
 ```
 
 
@@ -145,7 +186,13 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
    bats --tap tests/test-clear-cache.bats
 ````
 
-2. ⚠️NOTE: The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
+OR run with options to trace and provide timing details during test execution
+
+```bash
+   bats --tap --trace --timing tests/test-clear-cache.bats
+````
+
+2. ⚠️NOTE: The test will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations to compete in the background - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
 **Expected output for a successful / completed test suite run with 12 tests passing**
 
@@ -178,6 +225,70 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
   mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
 ```
 
+**INFO: Bats Options/Usage/Manual**
+
+```terminaloutput
+% bats -h
+Bats 1.13.0
+Usage: bats [OPTIONS] <tests>
+       bats [-h | -v]
+
+  <tests> is the path to a Bats test file, or the path to a directory
+  containing Bats test files (ending with ".bats")
+
+  --abort                   Stop execution of suite on first failed test
+  -c, --count               Count test cases without running any tests
+  --code-quote-style <style>
+                            A two character string of code quote delimiters
+                            or 'custom' which requires setting $BATS_BEGIN_CODE_QUOTE and
+                            $BATS_END_CODE_QUOTE. Can also be set via $BATS_CODE_QUOTE_STYLE
+  --line-reference-format   Controls how file/line references e.g. in stack traces are printed:
+                              - comma_line (default): a.bats, line 1
+                              - colon:  a.bats:1
+                              - uri: file:///tests/a.bats:1
+                              - custom: provide your own via defining bats_format_file_line_reference_custom
+                                        with parameters <filename> <line>, store via `printf -v "$output"`
+  -f, --filter <regex>      Only run tests that match the regular expression
+  --negative-filter <regex> Only run tests that do not match the regular expression
+  --filter-status <status>  Only run tests with the given status in the last completed (no CTRL+C/SIGINT) run.
+                            Valid <status> values are:
+                              failed - runs tests that failed or were not present in the last run
+                              missed - runs tests that were not present in the last run
+  --filter-tags <comma-separated-tag-list>
+                            Only run tests that match all the tags in the list (&&).
+                            You can negate a tag via prepending '!'.
+                            Specifying this flag multiple times allows for logical or (||):
+                            `--filter-tags A,B --filter-tags A,!C` matches tags (A && B) || (A && !C)
+  -F, --formatter <type>    Switch between formatters: pretty (default),
+                              tap (default w/o term), tap13, junit, /<absolute path to formatter>
+  --gather-test-outputs-in <directory>
+                            Gather the output of failing *and* passing tests
+                            as files in directory (if existing, must be empty)
+  -h, --help                Display this help message
+  -j, --jobs <jobs>         Number of parallel jobs (requires GNU parallel or shenwei356/rush)
+  --parallel-binary-name    Name of parallel binary
+  --no-tempdir-cleanup      Preserve test output temporary directory
+  --no-parallelize-across-files
+                            Serialize test file execution instead of running
+                            them in parallel (requires --jobs >1)
+  --no-parallelize-within-files
+                            Serialize test execution within files instead of
+                            running them in parallel (requires --jobs >1)
+  --report-formatter <type> Switch between reporters (same options as --formatter)
+  -o, --output <dir>        Directory to write report files (must exist)
+  -p, --pretty              Shorthand for "--formatter pretty"
+  --print-output-on-failure Automatically print the value of `$output` on failed tests
+  -r, --recursive           Include tests in subdirectories
+  --show-output-of-passing-tests
+                            Print output of passing tests
+  -t, --tap                 Shorthand for "--formatter tap"
+  -T, --timing              Add timing information to tests
+  -x, --trace               Print test commands as they are executed (like `set -x`)
+  --verbose-run             Make `run` print `$output` by default
+  -v, --version             Display the version number
+
+  For more information, see https://github.com/bats-core/bats-core
+```
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
