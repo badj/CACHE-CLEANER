@@ -136,6 +136,8 @@ chmod +x CLEAR-STREMIO-CACHE-WITH-FIREWORKS.sh
 
 ### Expected output sample - CLEAR-STREMIO-CACHE.command/sh
 
+![CLEAR-CACHE-NO-FIREWORKS-DEMO.gif](images/CLEAR-CACHE-NO-FIREWORKS-DEMO.gif)
+
 ```terminaloutput
 Last login: Mon Mar 23 14:51:56 on ttys005
 testsuser:~ % /Users/testsuser/Desktop/CLEAR-STREMIO-CACHE.command ; exit;
@@ -180,6 +182,8 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 ```
 
 ### Expected output sample - CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh
+
+![CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif](images/CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif)
 
 ```terminaloutput
 Last login: Mon Mar 23 14:51:56 on ttys005
