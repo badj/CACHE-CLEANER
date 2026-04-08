@@ -189,7 +189,7 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 → THANKS FOR USING CACHE-CLEANER 🤙                                          
                                                                              
                                                                              
-→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW... -n 1  
+→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...
                                                                                                                                 
 ```
 
