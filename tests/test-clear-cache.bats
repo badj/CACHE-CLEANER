@@ -13,11 +13,10 @@ PATH="$REPO_ROOT:$PATH"
 SCRIPT="$REPO_ROOT/CLEAR-STREMIO-CACHE.sh"
 
 setup() {
-
   export TARGET="$BATS_TMPDIR/stremio-cache-test"
   mkdir -p "$TARGET"
 
-  # Create fake cache content (already good)
+  # Create fake cache content
   mkdir -p "$TARGET/subfolder"
   echo "fake data" > "$TARGET/file1.bin"
   echo "more data" > "$TARGET/file2.mp4"
@@ -30,20 +29,19 @@ setup() {
   # Crucial: create the structure the script expects
   mkdir -p "$HOME/Library/Application Support/stremio-server/stremio-cache"
 
-  # Make bin dir for mocks (already there, but ensure)
+  # Make bin dir for mocks
   mkdir -p "$BATS_TMPDIR/bin"
   export PATH="$BATS_TMPDIR/bin:$PATH"
-  hash -r   # ← invalidate bash path cache
+  hash -r   # invalidate bash path cache
 }
 
 teardown() {
   rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
 }
 
-# ──────────────────────────────────────── TESTS ────────────────────────────────────────
+# ──────────────────────────────────────── EXISTING TESTS (unchanged) ────────────────────────────────────────
 
 @test "Test 1 - safety check - refuses to delete /" {
-  # Create a temporary version that doesn't hardcode TARGET
   local temp_script="$BATS_TMPDIR/temp-clear-cache.sh"
   sed 's/^TARGET=.*$/TARGET="${TARGET:-~\/Library\/Application Support\/stremio-server\/stremio-cache}"/' "$SCRIPT" > "$temp_script"
   chmod +x "$temp_script"
@@ -58,8 +56,6 @@ teardown() {
 
 @test "Test 2 - safety check - refuses to delete / (critical path protection)" {
   local temp_script="$BATS_TMPDIR/temp-clear-cache-2.sh"
-
-  # Same sed as in Test 1 – make TARGET overridable
   sed 's/^TARGET=.*$/TARGET="${TARGET:-~\/Library\/Application Support\/stremio-server\/stremio-cache}"/' "$SCRIPT" > "$temp_script"
   chmod +x "$temp_script"
 
@@ -73,8 +69,6 @@ teardown() {
 
 @test "Test 3 - safety check - refuses to delete \$HOME (critical path protection)" {
   local temp_script="$BATS_TMPDIR/temp-clear-cache-home.sh"
-
-  # Make TARGET overridable (same sed as in previous tests)
   sed 's/^TARGET=.*$/TARGET="${TARGET:-~\/Library\/Application Support\/stremio-server\/stremio-cache}"/' "$SCRIPT" > "$temp_script"
   chmod +x "$temp_script"
 
@@ -162,15 +156,6 @@ EOF
   assert_output --partial "CURRENT CACHE SIZE: 42 MB"
 }
 
-# TODO: NOTE - test disabled because it requires the confirmation prompt to be active in the script, which is currently commented out for convenience.
-# To enable this test, uncomment the confirmation lines in the script and adjust the test as needed.
-
-#@test "Disabled - Test 6 - does NOT delete anything when confirmation is required (uncomment & test)" {
-#  # Assumes confirmation prompt is active in the script
-#  run bash -c 'echo "nope" | bash "'"$SCRIPT"'"'
-#  assert_output --partial "Operation aborted"
-#}
-
 @test "Test 5 - mock deletion - counts deleted MB correctly" {
   # Mock rm — just log and succeed
   cat > "$BATS_TMPDIR/bin/rm" <<'EOF'
@@ -195,19 +180,6 @@ fi
 EOF
   chmod +x "$BATS_TMPDIR/bin/du"
 
-  # Tell mock it's the "before" phase
-  export DU_PHASE="before"
-
-  run bash -c "
-    # Run script normally
-    bash \"$SCRIPT\"
-    # After script finishes, we can check output
-  "
-
-  # The deletion happens inside the script — we set phase before deletion
-  # But since we can't inject mid-script, we need to patch the script slightly
-
-  # Better approach: patch the script to set DU_PHASE around the rm
   local temp_script="$BATS_TMPDIR/temp-du-phase.sh"
   sed -e '/→ 🚨 REMOVAL IN PROGRESS.../a\
 export DU_PHASE="after"' \
@@ -215,7 +187,7 @@ export DU_PHASE="after"' \
 export DU_PHASE="before"' "$SCRIPT" > "$temp_script"
   chmod +x "$temp_script"
 
-  # Now run the patched version
+  # Run the patched version
   run bash "$temp_script"
 
   assert_success
@@ -225,6 +197,15 @@ export DU_PHASE="before"' "$SCRIPT" > "$temp_script"
 
   rm -f "$temp_script"
 }
+
+# TODO: NOTE - test disabled because it requires the confirmation prompt to be active in the script, which is currently commented out for convenience.
+# To enable this test, uncomment the confirmation lines in the script and adjust the test as needed.
+
+#@test "Disabled - Test 6 - does NOT delete anything when confirmation is required (uncomment & test)" {
+#  # Assumes confirmation prompt is active in the script
+#  run bash -c 'echo "nope" | bash "'"$SCRIPT"'"'
+#  assert_output --partial "Operation aborted"
+#}
 
 @test "Test 6 - does not crash when folder is already empty" {
   rm -rf "${TARGET:?}"/*
@@ -354,18 +335,16 @@ EOF
 }
 
 @test "Test 11 - du -sm — du fails or returns garbage → script still exits cleanly" {
-  mkdir -p "$BATS_TMPDIR/bin"
   cat > "$BATS_TMPDIR/bin/du" <<'EOF'
 #!/usr/bin/env bash
 echo "error: disk full or permission denied" >&2
 exit 5
 EOF
   chmod +x "$BATS_TMPDIR/bin/du"
-#  export PATH="$BATS_TMPDIR/bin:$PATH"
 
   run bash "$SCRIPT"
 
-  # We want the script to continue (graceful handling) even if size is wrong
+  # Let the script continue (graceful handling) even if the size is wrong
   assert_success
   # Optional: check that size shows as empty or unknown
   assert_line --partial "CURRENT CACHE SIZE: "   # might be empty or 0
@@ -408,3 +387,74 @@ EOF
 
   rm -f "$patched"
 }
+
+# ──────────────────────────────────────── FIREWORKS TESTS ────────────────────────────────────────
+
+@test "Test 13 - fireworks: fires when user enters 'yes' or 'y'" {
+  # Mock node + npx so fireworks command "succeeds"
+  cat > "$BATS_TMPDIR/bin/node" <<'EOF'
+#!/usr/bin/env bash
+exit 0
+EOF
+  chmod +x "$BATS_TMPDIR/bin/node"
+
+  cat > "$BATS_TMPDIR/bin/npx" <<'EOF'
+#!/usr/bin/env bash
+if [[ "$1" == "firew0rks" ]]; then
+  echo "🎆 FIREWORKS LAUNCHED SUCCESSFULLY 🎆"
+  exit 0
+fi
+exit 0
+EOF
+  chmod +x "$BATS_TMPDIR/bin/npx"
+
+  # Run script with "yes" input
+  run bash -c "printf 'yes\n' | bash \"$SCRIPT\""
+
+  assert_success
+
+  # Always-present cleanup messages
+  assert_output --partial "STREMIO CACHE CLEANUP COMPLETE"
+  assert_output --partial "DELETING CONTENTS OF"
+  assert_output --partial "Fire some fireworks for the successful cleanup? 🎆"
+
+  # Fireworks branch messages (these come from the script's echo statements)
+  assert_output --partial "→ 🎆  LAUNCHING FIREWORKS...  🎆"
+  assert_output --partial "🎆 FIREWORKS LAUNCHED SUCCESSFULLY 🎆"
+
+  # Ensure we did NOT take the skip path
+  refute_output --partial "Fireworks skipped"
+}
+
+@test "Test 14 - fireworks: skips when user enters anything other than 'y'/'yes'" {
+  # Same mocks
+  cat > "$BATS_TMPDIR/bin/node" <<'EOF'
+#!/usr/bin/env bash
+exit 0
+EOF
+  chmod +x "$BATS_TMPDIR/bin/node"
+
+  cat > "$BATS_TMPDIR/bin/npx" <<'EOF'
+#!/usr/bin/env bash
+if [[ "$1" == "firew0rks" ]]; then
+  echo "🎆 FIREWORKS LAUNCHED SUCCESSFULLY 🎆"
+  exit 0
+fi
+exit 0
+EOF
+  chmod +x "$BATS_TMPDIR/bin/npx"
+
+  # Run with "no" input
+  run bash -c "printf 'no\n' | bash \"$SCRIPT\""
+
+  assert_success
+
+  assert_output --partial "Fire some fireworks for the successful cleanup? 🎆"
+  assert_output --partial "→ Fireworks skipped. Hope you still enjoyed the cleanup! ✨"
+
+  # Ensure we did NOT launch fireworks
+  refute_output --partial "LAUNCHING FIREWORKS"
+  refute_output --partial "FIREWORKS LAUNCHED SUCCESSFULLY"
+}
+
+# TODO - Optional: Add more variants (e.g. 'Y', empty input, 'maybe') if desired

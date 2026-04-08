@@ -3,16 +3,10 @@
 > A simple, safe, and visual bash script that completely clears the [Stremio](https://www.stremio.com) cache on macOS, freeing up disk space with a nice progress display and final summary. Perfect for users who notice Stremio taking up several gigabytes of cache over time.
 > 
 > **Project / Repo includes:**   
-> - **DEFAULT:** **CLEAR-STREMIO-CACHE.command/sh** - Bash script that completely clears the Stremio cache on macOS
-> - **OPTIONAL:** **CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh** - Bash script that completely clears the Stremio cache on macOS with the [Addyosmani/Firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal when the script completes successfully.
-> - **Test coverage with [BATS-CORE](https://github.com/bats-core/bats-core)**:
->   -  [CLEAR-STREMIO-CACHE](tests/test-clear-cache.bats) tests
->   -  [CLEAR-STREMIO-CACHE-WITH-FIREWORKS](tests/test-clear-cache-with-fireworks.bats) tests
-> - **GitHub Actions for CI/CD:**
->   - [Test Clear Cache](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
->     - [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
->   - [Test Clear Cache With Fireworks](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml)
->     - [![Test CLEAR-STREMIO-CACHE-WITH-FIREWORKS in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml)
+> - **CLEAR-STREMIO-CACHE.command/sh:** Bash script that completely clears the Stremio cache on macOS with the [Addyosmani/Firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal as an option when the script completes successfully.
+> - **Test coverage with [BATS-CORE](https://github.com/bats-core/bats-core)**: [CLEAR-STREMIO-CACHE](tests/test-clear-cache.bats) tests
+> - **GitHub Action for CI/CD to [test](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) the CLEAR-STREMIO-CACHE script in Docker:** 
+>   - [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
 ---
 
 ## Table of contents
@@ -26,7 +20,7 @@
 - [Tests](#tests)
   - [Run tests locally](#run-tests-locally)
     - [Expected output - standard run](#expected-output---standard-run) 
-    - [Expected output - run with options](#expected-output---run-with-options)
+    - [Expected output - run with options](#expected-output---run-with-options-for-tracing-and-timings)
     - [INFO: BATS Options/Usage/Manual](#info-bats-optionsusagemanual)
   - [CICD Integration](#cicd-integration)
 - [Open issues (to be addressed in the next release)](#open-issues-to-be-addressed-in-the-next-release)
@@ -36,7 +30,9 @@
 ## Features
 
 - **Safe**: Includes safety checks to prevent accidental deletion of important folders
-- **Visual**: Shows what’s being deleted, with sizes
+- **Visual**: 
+  - Shows what’s being deleted, with sizes
+  - "Firew0rks" animated text art in the terminal as an option when the script completes successfully
 - **Informative**: Displays cache size before and after, plus total disk space info
 - **User-friendly**: Clear-colored emojis and easy-to-read output
 - **Auto-close**: Automatically closes the Terminal window when finished (macOS Terminal & iTerm2)
@@ -73,7 +69,7 @@
 
 ### Option 1: Easy Double-Click
 
-1. Download the script as `CLEAR-STREMIO-CACHE.command` or `CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command`
+1. Download the `CLEAR-STREMIO-CACHE.command` or `CLEAR-STREMIO-CACHE.sh` script
 2. (Optional but recommended) Move it to your Desktop or Applications folder
 3. Open a terminal and navigate to the location of the script and make it executable
 
@@ -89,19 +85,7 @@ OR
 chmod +x CLEAR-STREMIO-CACHE.sh
 ```
 
-**CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh**
-
-```bash
-chmod +x CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command
-```
-
-OR
-
-```bash
-chmod +x CLEAR-STREMIO-CACHE-WITH-FIREWORKS.sh
-```
-
-4. Double-click the file → Terminal will open and clean the cache automatically
+4. Double-click the CLEAR-STREMIO-CACHE.command file → Terminal will open and clean the cache automatically with a prompt to fire the fireworks animation
 5. Press any key when finished to close the window
 
 
@@ -122,21 +106,9 @@ chmod +x CLEAR-STREMIO-CACHE.sh
 ./CLEAR-STREMIO-CACHE.sh
 ```
 
-**CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh**
-
-```bash
-chmod +x CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command
-./CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command
-```
-
-```bash
-chmod +x CLEAR-STREMIO-CACHE-WITH-FIREWORKS.sh
-./CLEAR-STREMIO-CACHE.sh
-```
-
 ### Expected output sample - CLEAR-STREMIO-CACHE.command/sh
 
-![CLEAR-CACHE-NO-FIREWORKS-DEMO.gif](images/CLEAR-CACHE-NO-FIREWORKS-DEMO.gif)
+![CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif](images/CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif)
 
 ```terminaloutput
 Last login: Mon Mar 23 14:51:56 on ttys005
@@ -175,56 +147,8 @@ OVERALL DISK SPACE ON YOUR MAC (MAIN DRIVE):
 YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 ==========================================
                                  
-→ THANKS FOR USING CACHE-CLEANER 🤙 !                                        
                                                                              
-→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...                           
-                                                                                                                                
-```
-
-### Expected output sample - CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command/sh
-
-![CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif](images/CLEAR-CACHE-WITH-FIREWORKS-DEMO.gif)
-
-```terminaloutput
-Last login: Mon Mar 23 14:51:56 on ttys005
-testsuser:~ % /Users/testsuser/Desktop/CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command ; exit;
-TARGET DIRECTORY: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
-
-CONTENTS OF STREMIO CACHE FOLDER:
-total 0
-drwxr-xr-x  3 testsuser  staff    96B 23 Mar 23:00 Test folder 1
-drwxr-xr-x  3 testsuser  staff    96B 23 Mar 23:01 Test folder 2
-
-CURRENT CACHE SIZE: 1 MB
-
-→ 🚀 DELETING CONTENTS OF: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
-→ 🚨 REMOVAL IN PROGRESS...
-→ 🧚 FILES/FOLDERS BEING DELETED:
-  DELETING:  16K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/.DS_Store
-  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 1
-  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 1/test-file1.txt
-  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 2
-  DELETING: 4.0K	/Users/testsuser/Library/Application Support/stremio-server/stremio-cache/Test folder 2/test-file2.txt
-
-==========================================
-→ ✅ STREMIO CACHE CLEANUP COMPLETE
-→ 🗑  DELETED: 1 MB
-→ ✨ REMAINING CACHE SIZE AFTER CLEANUP: 0 MB
-→ 🍿 FOLDER: /Users/testsuser/Library/Application Support/stremio-server/stremio-cache
-==========================================
-OVERALL DISK SPACE ON YOUR MAC (MAIN DRIVE):
-
-  TOTAL DISK SIZE:  460Gi
-  USED:             12Gi
-  FREE (REMAINING): 63Gi
-  USED PERCENTAGE:  16%
-
-YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
-==========================================
-
-→  🎆  ENJOY SOME FIREWORKS FOR A SUCCESSFUL CLEANUP  🎆  !                                                                             
-
-            +*_          -                        .           .             
+             +*_          -                        .           .             
               `^,         ;  __^    _=             '        , `)             
                 '- ^,  ^  ' {)' =^_^               `       `,  - `,`;        
       ^'^+_      `` '  -  ` ;)x[ '   _=*      ;`       . .  '     ( '        
@@ -257,10 +181,15 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
  `                                                 '  _              '       
  `                                                    ' `                    
                                                                              
-                                 
-→ THANKS FOR USING CACHE-CLEANER 🤙 !                                        
                                                                              
-→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...                           
+                                                                             
+                                                                             
+                                                                             
+
+→ THANKS FOR USING CACHE-CLEANER 🤙                                          
+                                                                             
+                                                                             
+→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW... -n 1  
                                                                                                                                 
 ```
 
@@ -289,112 +218,121 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
    bats --tap --trace --timing tests/test-clear-cache.bats
 ````
 
-⚠️ **NOTES:** 
-
-> **When running:** `bats --tap tests/test-clear-cache.bats`
+> ⚠️ **NOTES:**
 > - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the script run to compete in the background.
 > - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
-> **When running:** `bats --tap tests/test-clear-cache-with-fireworks.bats`
-> - The tests run locally will pause output from `Test 3 - safety check - refuses to delete $HOME (critical path protection)` due to the wait time for the fireworks terminal text animations for the script run to compete in the background.
-> - HIT any keyboard KEY to continue the test run and cycle through the remaining tests to complete the 12 tests in the test suite.
 
 ### Expected output - standard run
 
-> Successful / completed test suite local run with 12 tests passing
+> Successful / completed test suite local run with 14 tests passing
 
 ```terminaloutput
   CACHE-CLEANER (main) % bats --tap tests/test-clear-cache.bats
-  1..12
+  1..14
   ok 1 Test 1 - safety check - refuses to delete /
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/1.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/1.out
   ok 2 Test 2 - safety check - refuses to delete / (critical path protection)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/2.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/2.out
   ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/3.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/3.out
   ok 4 Test 4 - shows size before (mocked du)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/4.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/4.out
   ok 5 Test 5 - mock deletion - counts deleted MB correctly
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/5.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/5.out
   ok 6 Test 6 - does not crash when folder is already empty
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/6.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/6.out
   ok 7 Test 7 - df parsing - formats header and values correctly (mocked df)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/7.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/7.out
   ok 8 Test 8 - du -sm - empty folder reports 0 MB before and after
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/8.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/8.out
   ok 9 Test 9 - du -sm - very large cache size (multi-gigabyte reported as MB)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/9.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/9.out
   ok 10 Test 10 - du -sm - very small non-zero size (fractional rounding)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/10.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/10.out
   ok 11 Test 11 - du -sm — du fails or returns garbage → script still exits cleanly
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/11.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/11.out
   ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen)
-  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-ZPkhNI/test/12.out
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/12.out
+  ok 13 Test 13 - fireworks: fires when user enters 'yes' or 'y'
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/13.out
+  ok 14 Test 14 - fireworks: skips when user enters anything other than 'y'/'yes'
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-S5WupV/test/14.out
 ```
 
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
-### Expected output - run with options
+### Expected output - run with options for tracing and timings
 
-> Expected output for a successful / completed test suite local run with options `--trace --timing` for 12 tests passing
+> Expected output for a successful / completed test suite local run with options `--trace --timing` for 14 tests passing
 
 ```terminaloutput
-CACHE-CLEANER (main) % bats --tap --trace --timing tests/test-clear-cache.bats
-1..12
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 1 Test 1 - safety check - refuses to delete / in 107ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/1.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 2 Test 2 - safety check - refuses to delete / (critical path protection) in 56ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/2.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection) in 59ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/3.out
-$ [test-clear-cache.bats, line 39]
-$ teardown >> "$BATS_OUT" 2>&1
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 4 Test 4 - shows size before (mocked du) in 7533ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/4.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 5 Test 5 - mock deletion - counts deleted MB correctly in 8833ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/5.out
-$ [test-clear-cache.bats, line 39]
-$ teardown >> "$BATS_OUT" 2>&1
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 6 Test 6 - does not crash when folder is already empty in 4728ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/6.out
-$ [test-clear-cache.bats, line 39]
-$ teardown >> "$BATS_OUT" 2>&1
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 7 Test 7 - df parsing - formats header and values correctly (mocked df) in 1107ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/7.out
-$ [test-clear-cache.bats, line 39]
-$ teardown >> "$BATS_OUT" 2>&1
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 8 Test 8 - du -sm - empty folder reports 0 MB before and after in 1277ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/8.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 9 Test 9 - du -sm - very large cache size (multi-gigabyte reported as MB) in 965ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/9.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 10 Test 10 - du -sm - very small non-zero size (fractional rounding) in 956ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/10.out
-$ [test-clear-cache.bats, line 39]
-$ teardown >> "$BATS_OUT" 2>&1
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 11 Test 11 - du -sm — du fails or returns garbage → script still exits cleanly in 917ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/11.out
-$ [test-clear-cache.bats, line 40]
-$ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
-ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen) in 974ms
-mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-GaSiPs/test/12.out
+  CACHE-CLEANER (main) % bats --tap --trace --timing tests/test-clear-cache-with-fireworks-wip.bats
+  1..14
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 1 Test 1 - safety check - refuses to delete / in 58ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/1.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 2 Test 2 - safety check - refuses to delete / (critical path protection) in 68ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/2.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 3 Test 3 - safety check - refuses to delete $HOME (critical path protection) in 78ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/3.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 4 Test 4 - shows size before (mocked du) in 4065ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/4.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 5 Test 5 - mock deletion - counts deleted MB correctly in 1140ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/5.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 6 Test 6 - does not crash when folder is already empty in 1003ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/6.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 7 Test 7 - df parsing - formats header and values correctly (mocked df) in 859ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/7.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 8 Test 8 - du -sm - empty folder reports 0 MB before and after in 877ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/8.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 9 Test 9 - du -sm - very large cache size (multi-gigabyte reported as MB) in 963ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/9.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 10 Test 10 - du -sm - very small non-zero size (fractional rounding) in 1065ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/10.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 11 Test 11 - du -sm — du fails or returns garbage → script still exits cleanly in 2033ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/11.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 39]
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 12 Test 12 - size calculation handles negative result (defensive — shouldn't happen) in 1716ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/12.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 13 Test 13 - fireworks: fires when user enters 'yes' or 'y' in 451ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/13.out
+  $ [test-clear-cache-with-fireworks-wip.bats, line 38]
+  $ teardown >> "$BATS_OUT" 2>&1
+  $ rm -rf "$TARGET" "$HOME" "$BATS_TMPDIR/bin"
+  ok 14 Test 14 - fireworks: skips when user enters anything other than 'y'/'yes' in 335ms
+  mock rm -f /var/folders/38/v1629dtx735bjmzyy8sx8w0r0000gn/T/bats-run-BWiznS/test/14.out
 ```
 
 
@@ -475,9 +413,6 @@ Usage: bats [OPTIONS] <tests>
 
 - GitHub Action/Workflow implemented to [test the CLEAR-STREMIO-CACHE.command](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml) on every commit/push/pull request to main and daily scheduled runs.
   - [![Test CLEAR-STREMIO-CACHE in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache.yml)
-- GitHub Action/Workflow implemented to [test the CLEAR-STREMIO-CACHE-WITH-FIREWORKS.command](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml) on every commit/push/pull request to main and daily scheduled runs.
-  - [![Test CLEAR-STREMIO-CACHE-WITH-FIREWORKS in Docker](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml/badge.svg)](https://github.com/badj/CACHE-CLEANER/actions/workflows/test-clear-cache-with-fireworks.yml)
-
 
 [_⇡ Return to the Table of Contents_](#table-of-contents)
 
