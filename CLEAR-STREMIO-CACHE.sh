@@ -108,7 +108,7 @@ echo -e "→ THANKS FOR USING CACHE-CLEANER 🤙 "
 
 # === Prompt to close the Terminal window ===
 echo
-read -p "→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW..." -n 1
+read -p "→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW..."
 echo
 
 # Close Terminal or iTerm2 window
