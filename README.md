@@ -144,9 +144,12 @@ OVERALL DISK SPACE ON YOUR MAC (MAIN DRIVE):
   FREE (REMAINING): 63Gi
   USED PERCENTAGE:  16%
 
-YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
+YOU NOW HAVE APPROXIMATELY 33Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
 ==========================================
-                                 
+
+→ Fire some fireworks for the successful cleanup? 🎆 
+→ Type 'yes' or 'y' then ENTER to fire fireworks or anything else to skip fireworks: y
+→ 🎆  LAUNCHING FIREWORKS...  🎆                                 
                                                                              
              +*_          -                        .           .             
               `^,         ;  __^    _=             '        , `)             
@@ -182,14 +185,7 @@ YOU NOW HAVE APPROXIMATELY 63Gi OF FREE SPACE REMAINING ON YOUR MAIN DRIVE.
  `                                                    ' `                    
                                                                              
                                                                              
-                                                                             
-                                                                             
-                                                                             
-
-→ THANKS FOR USING CACHE-CLEANER 🤙                                          
-                                                                             
-                                                                             
-→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW...
+→ 🏁 CLEANUP SUCCESSFUL ✨ 🤙  PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW... 
                                                                                                                                 
 ```
 
