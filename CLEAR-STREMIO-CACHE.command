@@ -1,5 +1,3 @@
-# rm -rf "/Users/[your mac user profile here]/Library/Application Support/stremio-server/stremio-cache/"* 2>/dev/null || true
-
 #!/usr/bin/env bash
 
 # =====================================================
@@ -89,7 +87,7 @@ echo "=========================================="
 # === Fireworks celebration with user choice ===
 echo
 echo -e "→ Fire some fireworks for the successful cleanup? 🎆 "
-read -p "→ Type 'yes' or 'y' to fire fireworks - anything else to skip: " fireworks_choice
+read -p "→ Type 'yes' or 'y' then ENTER to fire fireworks or anything else to skip fireworks: " fireworks_choice
 
 echo
 
@@ -104,16 +102,12 @@ if [[ "$fireworks_choice" =~ ^[Yy]([Ee][Ss])?$ ]]; then
         echo "You can install Node.js to enjoy the fireworks next time!"
     fi
 else
-    echo "→ Fireworks skipped. Hope you still enjoyed the cleanup! ✨"
+    echo "→ FIREWORKS SKIPPED ✨ "
 fi
-
-# === Thank you message with short pause===
-echo
-echo -e "→ THANKS FOR USING CACHE-CLEANER 🤙 "
 
 # === Prompt to close the Terminal window ===
 echo
-read -p "→ 🏁 PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW..."
+read -p "→ 🏁 CLEANUP SUCCESSFUL ✨ 🤙  PRESS ANY KEY TO CLOSE THE TERMINAL WINDOW..."
 echo
 
 # Close Terminal or iTerm2 window

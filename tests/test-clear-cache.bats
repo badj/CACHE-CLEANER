@@ -450,7 +450,7 @@ EOF
   assert_success
 
   assert_output --partial "Fire some fireworks for the successful cleanup? 🎆"
-  assert_output --partial "→ Fireworks skipped. Hope you still enjoyed the cleanup! ✨"
+  assert_output --partial "→ FIREWORKS SKIPPED ✨ "
 
   # Ensure we did NOT launch fireworks
   refute_output --partial "LAUNCHING FIREWORKS"
