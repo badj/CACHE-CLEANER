@@ -1,6 +1,6 @@
 # Stremio Cache Cleaner for macOS
 
-> A simple, safe, and visual bash script that completely clears the [Stremio](https://www.stremio.com) cache on macOS, freeing up disk space with a nice progress display and final summary. Perfect for users who notice Stremio taking up several gigabytes of cache over time.
+> A simple, safe, & visual bash script that completely clears the [Stremio](https://www.stremio.com) cache on macOS, freeing up disk space with a nice progress display and final summary. Perfect for users who notice Stremio taking up several gigabytes of cache over time.
 > 
 > **Project / Repo includes:**   
 > - **CLEAR-STREMIO-CACHE.command/sh:** Bash script that completely clears the Stremio cache on macOS with the [Addyosmani/Firew0rks package](https://github.com/addyosmani/firew0rks) bundled [locally *(for offline support)*](firew0rks) to animate fireworks text art in the terminal as an option when the script completes successfully.
