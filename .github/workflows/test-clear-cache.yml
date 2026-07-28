@@ -9,23 +9,23 @@ on:
     - cron: '0 17 * * *'  # 5am NZT (UTC+12)
   workflow_dispatch:  # Allows manual trigger
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
 
       - name: Install bats + core utils
         run: |
           sudo apt-get update
           sudo apt-get install -y bats
-
-      - name: Install bats-support & bats-assert
-        run: |
-          git clone https://github.com/bats-core/bats-support.git test_helper/bats-support
-          git clone https://github.com/bats-core/bats-assert.git  test_helper/bats-assert
 
       - name: Run bats tests
         working-directory: tests

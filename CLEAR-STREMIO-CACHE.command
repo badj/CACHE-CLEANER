@@ -4,10 +4,7 @@
 # Stremio Cache Cleaner with Fireworks Animation Option
 # =====================================================
 
-TARGET="~/Library/Application Support/stremio-server/stremio-cache"
-
-# Expand ~ to full path
-TARGET=$(eval echo "$TARGET")
+TARGET="$HOME/Library/Application Support/stremio-server/stremio-cache"
 
 echo "TARGET DIRECTORY: $TARGET"
 echo
@@ -51,7 +48,7 @@ echo "→ 🧚 FILES/FOLDERS BEING DELETED:"
 find "$TARGET" -mindepth 1 -exec du -sh {} \; | sed 's/^/  DELETING: /'
 
 # Actually delete everything inside (but not the folder itself)
-rm -rf "${TARGET}/"* "${TARGET}/".* 2>/dev/null
+find "$TARGET" -mindepth 1 -delete 2>/dev/null
 
 # Calculate size after deletion
 SIZE_AFTER=$(du -sm "$TARGET" 2>/dev/null | awk '{print $1}')

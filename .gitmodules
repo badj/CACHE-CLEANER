@@ -1,3 +1,6 @@
+[submodule "firew0rks"]
+	path = firew0rks
+	url = https://github.com/addyosmani/firew0rks.git
 [submodule "test_helper/bats-support"]
 	path = test_helper/bats-support
 	url = https://github.com/bats-core/bats-support
